@@ -32,11 +32,15 @@ jobs:
       - name: Build with PyInstaller
         run: pyinstaller --noconfirm --clean --windowed --onefile --name "Playground Mods" --collect-all PySide6 main.py
 
+      - name: Package archive
+        run: >
+          python -c "import shutil, sys; name = 'Playground Mods.app' if sys.platform == 'darwin' else ('Playground Mods.exe' if sys.platform == 'win32' else 'Playground Mods'); shutil.make_archive('dist/Playground-Mods-' + sys.platform, 'zip', 'dist', name)"
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: Playground-Mods-${{ matrix.os }}
-          path: dist/*
+          path: dist/*.zip
 
   release:
     name: Publish GitHub Release
