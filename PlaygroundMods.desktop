@@ -8,6 +8,6 @@ Exec=playground-mods
 Terminal=false
 Categories=Game;
 Keywords=people;playground;mods;steam;
-Icon=playground-mods
+Icon=/home/qwerty/Projects/peopleplayground/assets/icon.png
 StartupNotify=true
 StartupWMClass=playground-mods
