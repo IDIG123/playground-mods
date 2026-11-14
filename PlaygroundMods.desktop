@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Playground Mods
+GenericName=People Playground Mod Manager
+Comment=Browse and install People Playground mods from Switch Studio
+Exec=playground-mods
+Terminal=false
+Categories=Game;
+Keywords=people;playground;mods;steam;
+Icon=playground-mods
+StartupNotify=true
+StartupWMClass=playground-mods
