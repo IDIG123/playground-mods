@@ -16,10 +16,13 @@ jobs:
         include:
           - os: ubuntu-latest
             icon: assets/icon.png
+            artifact_path: dist/Playground Mods
           - os: windows-latest
             icon: assets/icon.ico
+            artifact_path: dist/Playground Mods.exe
           - os: macos-latest
             icon: assets/icon.icns
+            artifact_path: dist/Playground-Mods-darwin.zip
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -39,15 +42,15 @@ jobs:
       - name: Build with PyInstaller
         run: pyinstaller --noconfirm --clean --windowed --onefile --name "Playground Mods" --icon "${{ matrix.icon }}" --collect-all PySide6 main.py
 
-      - name: Package archive
-        run: >
-          python -c "import shutil, sys; name = 'Playground Mods.app' if sys.platform == 'darwin' else ('Playground Mods.exe' if sys.platform == 'win32' else 'Playground Mods'); shutil.make_archive('dist/Playground-Mods-' + sys.platform, 'zip', 'dist', name)"
+      - name: Package macOS app
+        if: runner.os == 'macOS'
+        run: python -c "import shutil; shutil.make_archive('dist/Playground-Mods-darwin', 'zip', 'dist', 'Playground Mods.app')"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: Playground-Mods-${{ matrix.os }}
-          path: dist/*.zip
+          path: ${{ matrix.artifact_path }}
 
   release:
     name: Publish GitHub Release
