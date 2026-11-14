@@ -13,6 +13,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            icon: assets/icon.png
+          - os: windows-latest
+            icon: assets/icon.ico
+          - os: macos-latest
+            icon: assets/icon.icns
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -29,15 +36,8 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: Set icon path
-        shell: bash
-        run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then echo "ICON_PATH=assets/icon.ico" >> "$GITHUB_ENV"; fi
-          if [[ "$RUNNER_OS" == "macOS" ]]; then echo "ICON_PATH=assets/icon.icns" >> "$GITHUB_ENV"; fi
-          if [[ "$RUNNER_OS" == "Linux" ]]; then echo "ICON_PATH=assets/icon.png" >> "$GITHUB_ENV"; fi
-
       - name: Build with PyInstaller
-        run: pyinstaller --noconfirm --clean --windowed --onefile --name "Playground Mods" --icon "$ICON_PATH" --collect-all PySide6 main.py
+        run: pyinstaller --noconfirm --clean --windowed --onefile --name "Playground Mods" --icon "${{ matrix.icon }}" --collect-all PySide6 main.py
 
       - name: Package archive
         run: >
