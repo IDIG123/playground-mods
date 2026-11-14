@@ -1,5 +1,7 @@
 # Playground Mods
 
+![Playground Mods Catalogue UI](assets/screenshot.png)
+
 A native desktop application for browsing and installing People Playground content
 from **Switch Studio**. Mods and contraptions are downloaded and extracted
 straight into the correct game folder — no browser, no manual copying.
