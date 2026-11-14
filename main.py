@@ -6,6 +6,7 @@ from __future__ import annotations
 import logging
 import sys
 import traceback
+from pathlib import Path
 
 from PySide6.QtCore import Qt, QThreadPool
 from PySide6.QtGui import QColor, QFont, QIcon, QPainter, QPixmap
@@ -20,6 +21,12 @@ log = logging.getLogger(__name__)
 
 
 def _app_icon() -> QIcon:
+    icon_path = Path(__file__).resolve().parent / "assets" / "icon.png"
+    if icon_path.exists():
+        icon = QIcon(str(icon_path))
+        if not icon.isNull():
+            return icon
+    # Fallback generated icon for development checkouts without assets.
     pixmap = QPixmap(64, 64)
     pixmap.fill(Qt.GlobalColor.transparent)
     painter = QPainter(pixmap)

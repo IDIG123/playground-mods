@@ -29,8 +29,15 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
+      - name: Set icon path
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == "Windows" ]]; then echo "ICON_PATH=assets/icon.ico" >> "$GITHUB_ENV"; fi
+          if [[ "$RUNNER_OS" == "macOS" ]]; then echo "ICON_PATH=assets/icon.icns" >> "$GITHUB_ENV"; fi
+          if [[ "$RUNNER_OS" == "Linux" ]]; then echo "ICON_PATH=assets/icon.png" >> "$GITHUB_ENV"; fi
+
       - name: Build with PyInstaller
-        run: pyinstaller --noconfirm --clean --windowed --onefile --name "Playground Mods" --collect-all PySide6 main.py
+        run: pyinstaller --noconfirm --clean --windowed --onefile --name "Playground Mods" --icon "$ICON_PATH" --collect-all PySide6 main.py
 
       - name: Package archive
         run: >
