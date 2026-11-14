@@ -89,7 +89,7 @@ python3 main.py
 ## Download a build
 
 Pre-built binaries for Linux, Windows, and macOS are published on the
-[Releases page](https://github.com/<your-user>/peopleplayground/releases).
+[Releases page](https://github.com/IDIG123/playground-mods/releases).
 Download the file for your platform, extract it, and run `Playground Mods`.
 
 ## Build it yourself
